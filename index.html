@@ -1,28 +1,28 @@
+<!-- Hosted on CS4640 server: https://cs4640.cs.virginia.edu/tmq6ed/musclemap/index.html-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Welcome to MuscleMap. A web-based interactive muscle exercise guide that allows users to explore
-        different muscle groups on a human body diagram and receive recommended exercises for strengthening and growing those muscles.">
+        <meta name="description" content="Explore MuscleMap: An interactive guide to target muscle groups and discover the best exercises to strengthen and grow them.">
         <meta name="author" content="Andy Phan, Kevin Arleen">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta property="og:title" content="MuscleMap">
+        <meta property="og:title" content="MuscleMap - Interactive Muscle Exercise Guide">
         <meta property="og:type" content="website">
         <meta property="og:image" content="">
-        <meta property="og:url" content="">
-        <meta property="og:description" content="A web-based interactive muscle exercise guide that allows
-        users to explore different muscle groups on a human body diagram and receive recommended exercises for
-        strengthening and growing those muscles.">
+        <meta property="og:url" content="https://cs4640.cs.virginia.edu/tmq6ed/musclemap/">
+        <meta property="og:description" content="Click on a muscle group to get recommended exercises and create your personalized workout plan.">
         <meta property="og:site_name" content="MuscleMap">
 
         <title>MuscleMap</title>
+        <link rel="stylesheet" href="styles/style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="">MuscleMap</a>
+                <a class="navbar-brand" href="index.html">MuscleMap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,12 +33,16 @@
                 </div>
             </div>
         </nav>
-        <main class="container">
-            <h1 class="text-center my-4">Welcome to MuscleMap</h1>
-            <div class="col-md-6 text-center">
-                <img src="human_body.png" alt="Image of human body" width="1000">
-            </div>
-        </main>
+        <header class="container text-center my-5">
+            <h1>Welcome to MuscleMap</h1>
+            <p class="lead">Explore muscle groups and discover the best exercises to strengthen them.</p>
+        </header>
+        <div class="container text-center my-4">
+            <a href="exercise.html">
+                <img src="human_body.png" alt="Human Body Diagram" class="img-fluid">
+            </a>
+        </div>        
+        
         <footer class="container-fluid bg-dark text-white text-center py-4">
             <nav class="nav justify-content-center">
                 <a class="nav-link text-white" href="index.html">Home</a>
