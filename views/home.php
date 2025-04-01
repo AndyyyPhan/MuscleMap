@@ -11,7 +11,7 @@ Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
 </header>
 <div class="container text-center my-4">
     <a href="index.php?command=exercise">
-        <img src="human_body.png" alt="Human Body Diagram" class="img-fluid">
+        <img src="assets/human_body.png" alt="Human Body Diagram" class="img-fluid">
     </a>
 </div>        
 <?php include(__DIR__ . '/footer.php');?>
