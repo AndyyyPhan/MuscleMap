@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <?php if (!empty($_SESSION["user_id"])): ?>
-                    <li class="nav-item"><a class="nav-link" href="index.php?command=workout-plan"><?=$_SESSION["username"]?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?command=showWorkoutPlan"><?=$_SESSION["username"]?></a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?command=logout">Logout</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="index.php?command=login">Login/Signup</a></li>

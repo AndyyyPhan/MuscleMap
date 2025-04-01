@@ -1,16 +1,16 @@
 <?php
-require_once('php/models/WorkoutModel.php');
-require_once('db_credentials.php');
+
+require_once(__DIR__ . '/../models/WorkoutModel.php');
+
 
 class WorkoutController {
 
     private $input;
-    private $db; // Changed from conn to db
+    private $db;
     private $user_id;
     private $workoutModel;
 
     public function __construct($input, $db) { // Added $db parameter
-        session_start();
         $this->input = $input;
         $this->user_id = $_SESSION["user_id"] ?? null;  // Get user ID from session
         $this->db = $db; // Use the injected database connection
@@ -19,7 +19,7 @@ class WorkoutController {
 
     public function run() {
         if (!$this->user_id) {
-            header("Location: login.html"); //Redirect if not logged in
+            header("Location: index.php?command=login");
             exit();
         }
 
@@ -48,16 +48,16 @@ class WorkoutController {
     public function showWorkoutPlan() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
         $workout_data = $this->workoutModel->getWorkoutPlan($this->user_id, $day_of_week);
-        include(dirname(__FILE__) . "/../views/workout-plan.php"); // Include the view
+        include(__DIR__ . "/../views/workout-plan.php");// Include the view
     }
 
     public function showWorkoutProgress() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
         $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-        include(dirname(__FILE__) . "/../views/workout-progress.php"); // Include the view
+        include(__DIR__ . "/../views/workout-progress.php"); // Include the view
     }
 
-        public function saveWorkoutProgress() {
+    public function saveWorkoutProgress() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
 
         // Validate Required Parameters exist
@@ -68,7 +68,7 @@ class WorkoutController {
         if (empty($exercise_id) || empty($weight) || empty($reps)) {
             $error = "Missing Workout Information. Please complete the form!";
             $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-            include(dirname(__FILE__) . "/../views/workout-progress.php");
+            include(__DIR__ . "/../views/workout-progress.php");
             return;
         }
 
@@ -76,7 +76,7 @@ class WorkoutController {
         if (!is_numeric($weight) || !is_numeric($reps)) {
             $error = "Weight and reps must be numbers.";
             $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-            include(dirname(__FILE__) . "/../views/workout-progress.php");
+            include(__DIR__ . "/../views/workout-progress.php");
             return;
         }
 
@@ -85,7 +85,8 @@ class WorkoutController {
         if (strpos($result, 'Error') === 0) {
             $error = $result;
             $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-        } else {
+        }
+        else {
             $success = $result; // Assign success message
         }
 
@@ -93,35 +94,33 @@ class WorkoutController {
     }
 
     public function editWorkoutPlan() {
-         $day_of_week = $this->input["daySelect"] ?? 'M';
-        $user_id = $this->user_id;
+        $day_of_week = $this->input["daySelect"] ?? 'M';
 
         // Get the Plan ID
-        $plan_id = $this->workoutModel->getPlanId($user_id, $day_of_week);
+        $plan_id = $this->workoutModel->getPlanId($this->user_id, $day_of_week);
 
         // If the plan doesn't exist create one!
         if (!$plan_id) {
-            $plan_id = $this->workoutModel->createWorkoutPlan($user_id, $day_of_week);
+            $plan_id = $this->workoutModel->createWorkoutPlan($this->user_id, $day_of_week);
         }
 
         // Get the Workout Table Data
-        $workout_data = $this->workoutModel->getWorkoutPlan($user_id, $day_of_week);
+        $workout_data = $this->workoutModel->getWorkoutPlan($this->user_id, $day_of_week);
         // Get ALL of the exercise to pull from for the form
         $all_exercises = $this->workoutModel->getAllExercises();
 
-        include(dirname(__FILE__) . "/../views/edit-workout-plan.php");
+        include(__DIR__ . "/../views/edit-workout-plan.php");
     }
 
-       public function updateWorkoutPlan() {
+    public function updateWorkoutPlan() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
-        $user_id = $this->user_id;
 
         // Get the Plan ID
-        $plan_id = $this->workoutModel->getPlanId($user_id, $day_of_week);
+        $plan_id = $this->workoutModel->getPlanId($this->user_id, $day_of_week);
 
         // If the plan doesn't exist create one!
         if (!$plan_id) {
-            $plan_id = $this->workoutModel->createWorkoutPlan($user_id, $day_of_week);
+            $plan_id = $this->workoutModel->createWorkoutPlan($this->user_id, $day_of_week);
         }
 
         // Add any new exercises:
@@ -140,9 +139,4 @@ class WorkoutController {
 
         $this->showWorkoutPlan();
     }
-
-    public function __destruct() {
-        // No need to close the connection here as it's handled globally
-    }
 }
-?>

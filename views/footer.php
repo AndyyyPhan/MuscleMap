@@ -2,7 +2,7 @@
     <nav class="nav justify-content-center">
         <a class="nav-link text-white" href="index.php?command=home">Home</a>
         <?php if (!empty($_SESSION["user_id"])): ?>
-            <a class="nav-link text-white" href="index.php?command=workout-plan">Workout Plan</a>
+            <a class="nav-link text-white" href="index.php?command=showWorkoutPlan">Workout Plan</a>
         <?php else: ?>
             <a class="nav-link text-white" href="index.php?command=login">Login/Signup</a>
         <?php endif; ?>

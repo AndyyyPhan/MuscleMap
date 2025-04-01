@@ -13,7 +13,12 @@ if ($db) {
     die("Failed to connect to database");
 }
 
-$result = pg_query($db, "SELECT * FROM musclemap_users;");
+$result = pg_query($db, "
+    SELECT tablename 
+    FROM pg_catalog.pg_tables 
+    WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema';
+");
+
 $rows = pg_fetch_all($result);
 
 echo "<pre>";

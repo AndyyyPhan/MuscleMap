@@ -64,7 +64,7 @@ pg_query($db, "CREATE TABLE musclemap_user_exercises (
 );");
 
 // Seed a few exercises (example)
-pg_query($db, "INSERT INTO exercises (name, description, difficulty, muscle_group) VALUES
+pg_query($db, "INSERT INTO musclemap_exercises (name, description, difficulty, muscle_group) VALUES
     ('Bicep Curl', 'Classic dumbbell curl targeting the biceps', 'Beginner', 'Biceps'),
     ('Tricep Dip', 'Bodyweight exercise targeting triceps', 'Intermediate', 'Triceps'),
     ('Squat', 'Compound lower body exercise', 'Beginner', 'Quadriceps'),

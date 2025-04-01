@@ -1,15 +1,12 @@
 <?php
 
-require_once(__DIR__ . '/../models/Config.php');
-require_once(__DIR__ . '/../models/Database.php');
-
 class AuthController {
     private $input;
     private $db;
 
-    public function __construct($input) {
+    public function __construct($input, $db) {
         $this->input = $input;
-        $this->db = new Database();
+        $this->db = $db;
     }
 
     public function run() {
