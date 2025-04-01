@@ -74,6 +74,23 @@ class WorkoutModel {
         return $exercises;
     }
 
+        public function searchExercises($keyword) {
+        $query = "
+            SELECT id, name, muscle_group
+            FROM musclemap_exercises
+            WHERE name ILIKE $1 OR muscle_group ILIKE $1
+        ";
+        $params = array("%" . $keyword . "%");
+        $result = pg_query_params($this->db, $query, $params);
+
+        $exercises = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $exercises[] = $row;
+        }
+        pg_free_result($result);
+        return $exercises;
+    }
+
     public function saveWorkoutProgress($user_id, $exercise_id, $weight, $reps) {
         $query = "
             INSERT INTO musclemap_user_exercises (plan_id, exercise_id, sets, reps, weight)

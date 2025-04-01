@@ -38,6 +38,9 @@ class WorkoutController {
             case "updateWorkoutPlan":
                 $this->updateWorkoutPlan();
                 break;
+             case "searchExercises":
+                $this->searchExercises();
+                break;
             case "showWorkoutPlan":
             default:
                 $this->showWorkoutPlan();
@@ -138,5 +141,18 @@ class WorkoutController {
         }
 
         $this->showWorkoutPlan();
+    }
+
+     public function searchExercises() {
+        $keyword = $this->input["searchKeyword"] ?? "";
+        $exercises = $this->workoutModel->searchExercises($keyword);
+        header('Content-Type: application/json');
+        echo json_encode($exercises);
+    }
+
+    public function __destruct() {
+        if ($this->conn) {
+            $this->conn->close();
+        }
     }
 }
