@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 spl_autoload_register(function($classname) {
-    include "controllers/$classname.php";
-})
+    include __DIR__ . "/../../src/musclemap/controllers/$classname.php";
+});
 
 $musclemap = new MuscleMapController($_GET);
 $musclemap -> run();
