@@ -26,13 +26,13 @@ Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">MuscleMap</a>
+                <a class="navbar-brand" href="index.php?command=home">MuscleMap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="login.html">Login/Signup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php?command=login">Login/Signup</a></li>
                     </ul>
                 </div>
             </div>
@@ -42,16 +42,16 @@ Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
             <p class="lead">Explore muscle groups and discover the best exercises to strengthen them.</p>
         </header>
         <div class="container text-center my-4">
-            <a href="exercise.html">
+            <a href="index.php?command=exercise">
                 <img src="human_body.png" alt="Human Body Diagram" class="img-fluid">
             </a>
         </div>        
         
         <footer class="container-fluid bg-dark text-white text-center py-4">
             <nav class="nav justify-content-center">
-                <a class="nav-link text-white" href="index.html">Home</a>
-                <a class="nav-link text-white" href="login.html">Login/Signup</a>
-                <a class="nav-link text-white" href="workout-plan.html">Workout-Plan Screen</a>
+                <a class="nav-link text-white" href="index.php?command=home">Home</a>
+                <a class="nav-link text-white" href="index.php?command=login">Login/Signup</a>
+                <a class="nav-link text-white" href="index.php?command=workout-plan">Workout-Plan Screen</a>
             </nav>
             <small class="d-block mt-3 text-white">Copyright &copy; 2025 Andy Phan, Kevin Arleen</small>
         </footer>
