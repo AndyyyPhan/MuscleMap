@@ -1,0 +1,58 @@
+<?php
+require_once('php/controllers/AuthController.php');
+require_once('php/controllers/ExerciseController.php');
+require_once('php/controllers/WorkoutController.php');
+require_once('db_credentials.php'); //Require the DB here and pass it to the controllers.
+
+class MuscleMapController {
+    private $input;
+    private $db; //Add a DB variable to this controller
+
+    public function __construct($input) {
+        session_start();
+        $this->input = $input;
+
+        //Database Connection
+        global $host, $port, $database, $user, $password;
+
+        $this->db = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
+
+        if (!$this->db) {
+            die("Failed to connect to database");
+        }
+    }
+
+    public function run() {
+
+        $command = $this->input["command"] ?? "home";
+
+        switch($command) {
+            case "login":
+            case "signup":
+                $controller = new AuthController($this->input);
+                $controller->run();
+                break;
+            case "exercise":
+            case "get-exercises-json":
+                $controller = new ExerciseController($this->input);
+                $controller->run();
+                break;
+            case "showWorkoutPlan":
+            case "saveWorkoutProgress":
+            case "showWorkoutProgress":
+            case "editWorkoutPlan":   //New Command case
+            case "updateWorkoutPlan":
+                $controller = new WorkoutController($this->input, $this->db); // Pass the DB var
+                $controller->run();
+                break;
+            default:
+                $this->showHomePage();
+                break;
+        }
+    }
+
+    public function showHomePage() {
+        include(__DIR__ . "/../index.html");
+    }
+}
+?>
