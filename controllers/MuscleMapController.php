@@ -2,7 +2,6 @@
 
 class MuscleMapController {
     public function __construct($input) {
-        session_start();
         $this->input = $input;
     }
 
@@ -13,6 +12,7 @@ class MuscleMapController {
         switch($command) {
             case "login":
             case "signup":
+            case "logout":
                 $controller = new AuthController($this->input);
                 $controller->run();
                 break;

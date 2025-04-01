@@ -38,9 +38,11 @@ class AuthController {
                 break;
 
             case 'logout':
+                session_unset();
                 session_destroy();
+                setcookie(session_name(), '', time() - 3600, '/'); // kill session cookie
                 header("Location: index.php?command=home");
-                break;
+                exit();
         }
     }
 
