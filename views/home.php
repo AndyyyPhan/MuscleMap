@@ -4,57 +4,14 @@ Andy Phan's Contributions: index.html, login.html, signup.html, exercise.html, s
 Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="Explore MuscleMap: An interactive guide to target muscle groups and discover the best exercises to strengthen and grow them.">
-        <meta name="author" content="Andy Phan, Kevin Arleen">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <meta property="og:title" content="MuscleMap - Interactive Muscle Exercise Guide">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="">
-        <meta property="og:url" content="https://cs4640.cs.virginia.edu/tmq6ed/musclemap/">
-        <meta property="og:description" content="Click on a muscle group to get recommended exercises and create your personalized workout plan.">
-        <meta property="og:site_name" content="MuscleMap">
-
-        <title>MuscleMap</title>
-        <link rel="stylesheet" href="styles/style.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="index.php?command=home">MuscleMap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.php?command=login">Login/Signup</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <header class="container text-center my-5">
-            <h1>Welcome to MuscleMap</h1>
-            <p class="lead">Explore muscle groups and discover the best exercises to strengthen them.</p>
-        </header>
-        <div class="container text-center my-4">
-            <a href="index.php?command=exercise">
-                <img src="human_body.png" alt="Human Body Diagram" class="img-fluid">
-            </a>
-        </div>        
-        
-        <footer class="container-fluid bg-dark text-white text-center py-4">
-            <nav class="nav justify-content-center">
-                <a class="nav-link text-white" href="index.php?command=home">Home</a>
-                <a class="nav-link text-white" href="index.php?command=login">Login/Signup</a>
-                <a class="nav-link text-white" href="index.php?command=workout-plan">Workout-Plan Screen</a>
-            </nav>
-            <small class="d-block mt-3 text-white">Copyright &copy; 2025 Andy Phan, Kevin Arleen</small>
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </body>
-</html>
+<?php include(__DIR__ . '/header.php'); ?>
+<header class="container text-center my-5">
+    <h1>Welcome to MuscleMap</h1>
+    <p class="lead">Explore muscle groups and discover the best exercises to strengthen them.</p>
+</header>
+<div class="container text-center my-4">
+    <a href="index.php?command=exercise">
+        <img src="human_body.png" alt="Human Body Diagram" class="img-fluid">
+    </a>
+</div>        
+<?php include(__DIR__ . '/footer.php');?>

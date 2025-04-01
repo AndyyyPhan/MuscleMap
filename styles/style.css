@@ -172,3 +172,103 @@ a img:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
+
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+/* Connectors */
+.tree li::before, .tree li::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+.tree li::after{
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+/* Remove connectors from the root node */
+.tree > ul > li::before, .tree > ul > li::after{
+    border: 0;
+}
+/* Connector for first level nodes */
+.tree li:first-child::before{
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+.tree li:last-child::after{
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+/* Time to add downward connectors from parent to children */
+.branch::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+.tree div {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.exercise-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.exercise-form h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.exercise-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.exercise-form input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.chart-placeholder {
+    height: 200px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 200px;
+    color: #888;
+    border-radius: 5px;
+}
