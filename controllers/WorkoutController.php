@@ -38,6 +38,9 @@ class WorkoutController {
             case "updateWorkoutPlan":
                 $this->updateWorkoutPlan();
                 break;
+             case "searchExercises":
+                $this->searchExercises();
+                break;
             case "showWorkoutPlan":
             default:
                 $this->showWorkoutPlan();
@@ -57,7 +60,7 @@ class WorkoutController {
         include(dirname(__FILE__) . "/../views/workout-progress.php"); // Include the view
     }
 
-        public function saveWorkoutProgress() {
+    public function saveWorkoutProgress() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
 
         // Validate Required Parameters exist
@@ -141,8 +144,17 @@ class WorkoutController {
         $this->showWorkoutPlan();
     }
 
+     public function searchExercises() {
+        $keyword = $this->input["searchKeyword"] ?? "";
+        $exercises = $this->workoutModel->searchExercises($keyword);
+        header('Content-Type: application/json');
+        echo json_encode($exercises);
+    }
+
     public function __destruct() {
-        // No need to close the connection here as it's handled globally
+        if ($this->conn) {
+            $this->conn->close();
+        }
     }
 }
 ?>
