@@ -160,7 +160,10 @@ class WorkoutModel {
     }
 
     public function removeExerciseFromPlan($plan_id, $exercise_id) {
-        $query = "DELETE FROM musclemap_user_exercises WHERE plan_id = $1 AND exercise_id = $2";
+        $query = "DELETE FROM musclemap_user_exercises WHERE
+        id = (SELECT id FROM musclemap_user_exercises
+        WHERE plan_id = $1 AND exercise_id = $2 LIMIT 1)";
+        
         $params = array($plan_id, $exercise_id);
         $result = pg_query_params($this->db, $query, $params);
 
