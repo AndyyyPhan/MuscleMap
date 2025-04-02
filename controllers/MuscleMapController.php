@@ -6,10 +6,10 @@ class MuscleMapController {
     private $input;
     private $db;
 
-    public function __construct($input, $db) {
+    public function __construct($input) {
         session_start();
         $this->input = $input;
-        $this->db = new Database();
+        $this->db = new Database();;
     }
 
     public function run() {
@@ -29,10 +29,11 @@ class MuscleMapController {
                 $controller->run();
                 break;
             case "showWorkoutPlan":
-                case "saveWorkoutProgress":
-                case "showWorkoutProgress":
-                case "editWorkoutPlan":
-                case "updateWorkoutPlan":
+            case "saveWorkoutProgress":
+            case "showWorkoutProgress":
+            case "editWorkoutPlan":
+            case "updateWorkoutPlan":
+            case "searchExercises":
                     $controller = new WorkoutController($this->input, $this->db->getConnection());
                     $controller->run();
                     break;
