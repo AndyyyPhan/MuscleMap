@@ -272,3 +272,6 @@ a img:hover {
     color: #888;
     border-radius: 5px;
 }
+.table-container {
+    margin-top: 20px;
+}
