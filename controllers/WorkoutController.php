@@ -149,10 +149,4 @@ class WorkoutController {
         header('Content-Type: application/json');
         echo json_encode($exercises);
     }
-
-    public function __destruct() {
-        if ($this->conn) {
-            $this->conn->close();
-        }
-    }
 }
