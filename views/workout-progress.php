@@ -42,6 +42,34 @@
         <button type="submit">Save Progress</button>
     </form>
 
+    <h3 class="mt-5">Previous Workout Entries</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Exercise</th>
+                <th>Day</th>
+                <th>Weight (lbs)</th>
+                <th>Reps</th>
+                <th>Logged At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($history)): ?>
+                <tr><td colspan="5">No progress recorded yet.</td></tr>
+            <?php else: ?>
+                <?php foreach ($history as $entry): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($entry['exercise_name']) ?></td>
+                        <td><?= htmlspecialchars($entry['day_of_week']) ?></td>
+                        <td><?= htmlspecialchars($entry['weight']) ?></td>
+                        <td><?= htmlspecialchars($entry['reps']) ?></td>
+                        <td><?= date("M d, Y H:i", strtotime($entry['created_at'])) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+
     <div class="chart-placeholder">
         [Placeholder for Workout Progress Chart]
     </div>
