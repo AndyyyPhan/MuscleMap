@@ -19,16 +19,19 @@ $db = pg_connect("host=$host port=$port dbname=$database user=$user password=$pa
 // pg_query($db, "DROP TABLE IF EXISTS musclemap_user_workout_plans;");
 // pg_query($db, "DROP TABLE IF EXISTS musclemap_exercises;");
 // pg_query($db, "DROP TABLE IF EXISTS musclemap_users;");
+// pg_query($db, "DROP TABLE IF EXISTS musclemap_workout_progress;");
 // pg_query($db, "DROP SEQUENCE IF EXISTS musclemap_user_seq;");
 // pg_query($db, "DROP SEQUENCE IF EXISTS musclemap_exercise_seq;");
 // pg_query($db, "DROP SEQUENCE IF EXISTS musclemap_workout_plan_seq;");
 // pg_query($db, "DROP SEQUENCE IF EXISTS musclemap_user_exercise_seq;");
+// pg_query($db, "DROP SEQUENCE IF EXISTS musclemap_workout_progress_seq;");
 
 // // Create sequences
 // pg_query($db, "CREATE SEQUENCE musclemap_user_seq;");
 // pg_query($db, "CREATE SEQUENCE musclemap_exercise_seq;");
 // pg_query($db, "CREATE SEQUENCE musclemap_workout_plan_seq;");
 // pg_query($db, "CREATE SEQUENCE musclemap_user_exercise_seq;");
+// pg_query($db, "CREATE SEQUENCE musclemap_workout_progress_seq;");
 
 // // Create tables
 // pg_query($db, "CREATE TABLE musclemap_users (
@@ -70,5 +73,15 @@ $db = pg_connect("host=$host port=$port dbname=$database user=$user password=$pa
 //     ('Squat', 'Compound lower body exercise', 'Beginner', 'Quadriceps'),
 //     ('Deadlift', 'Advanced posterior chain movement', 'Advanced', 'Back')
 // ;");
+
+// pg_query($db, "CREATE TABLE musclemap_workout_progress (
+//     id INT PRIMARY KEY DEFAULT nextval('musclemap_workout_progress_seq'),
+//     user_id INT REFERENCES musclemap_users(id),
+//     exercise_id INT REFERENCES musclemap_exercises(id),
+//     day_of_week VARCHAR(5),
+//     weight INT,
+//     reps INT,
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );");
 
 echo "Done!";
