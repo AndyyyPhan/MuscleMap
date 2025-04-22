@@ -123,7 +123,6 @@ class WorkoutModel {
             return $insert_result ? "Progress saved!" : "Error saving progress: " . pg_last_error($this->db);
         }
     }
-    
 
     public function getPlanId($user_id, $day_of_week) {
         $query = "SELECT id FROM musclemap_user_workout_plans WHERE user_id = $1 AND name = $2";
