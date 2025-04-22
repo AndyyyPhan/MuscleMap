@@ -60,7 +60,7 @@ class WorkoutController {
         $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
 
         // Get any existing progress for those exercises
-        $progress = $this->workoutModel->getProgressForDay($this->user_id, $day_of_week);
+        $history = $this->workoutModel->getProgressHistory($this->user_id);
         include(__DIR__ . "/../views/workout-progress.php"); // Include the view
     }
 
