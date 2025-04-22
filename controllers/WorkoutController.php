@@ -154,9 +154,9 @@ class WorkoutController {
     }
 
      public function searchExercises() {
+        header('Content-Type: application/json');
         $keyword = $this->input["searchKeyword"] ?? "";
         $exercises = $this->workoutModel->searchExercises($keyword);
-        header('Content-Type: application/json');
         echo json_encode($exercises);
     }
 }
