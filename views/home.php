@@ -30,8 +30,13 @@ Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
     <img id="human-body" src="assets/human_body.png" alt="Human Body Diagram" width="500" usemap="#musclemap">
     <div id="highlight" class="highlight-box"></div>
     <map name="musclemap">
-        <area shape="rect" coords="130,150,180,200" href="index.php?command=exercise&muscle=biceps" alt="Biceps" id="biceps">
-        <area shape="rect" coords="200,300,250,350" href="index.php?command=exercise&muscle=quads" alt="Quads" id="quads">
+        <area shape="rect" coords="170,130,220,180" href="index.php?command=exercise&muscle=biceps" alt="Biceps" id="biceps">
+        <area shape="rect" coords="130,270,180,320" href="index.php?command=exercise&muscle=quads" alt="Quads" id="quads">
+        <area shape="rect" coords="270,130,350,180" href="index.php?command=exercise&muscle=triceps" alt="Triceps" id="triceps">
+        <area shape="rect" coords="300,270,350,320" href="index.php?command=exercise&muscle=hamstrings" alt="Hamstrings" id="hamstrings">
+        <area shape="rect" coords="300,350,350,400" href="index.php?command=exercise&muscle=calves" alt="Calves" id="calves">
+        <area shape="rect" coords="330,110,380,160" href="index.php?command=exercise&muscle=back" alt="Back" id="back">
+        <area shape="rect" coords="100,90,150,140" href="index.php?command=exercise&muscle=chest" alt="Chest" id="chest">
   </map>
   </div>
 </div>
