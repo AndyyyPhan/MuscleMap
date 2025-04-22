@@ -31,11 +31,11 @@
         <?php foreach ($exercises as $exercise): ?>
             <div class="exercise-form">
                 <h3><?php echo htmlspecialchars($exercise['exercise_name']); ?></h3>
-                <input type="hidden" name="exercise_id" value="<?php echo htmlspecialchars($exercise['exercise_id']); ?>">
+                <input type="hidden" name="exercise_id[]" value="<?php echo htmlspecialchars($exercise['exercise_id']); ?>">
                 <label for="weight">Weight (lbs):</label>
-                <input type="number" id="weight" name="weight" placeholder="Enter weight">
+                <input type="number" id="weight" name="weight[]" placeholder="Enter weight" value="<?php echo htmlspecialchars($progress[$exercise['exercise_id']]['weight'] ?? '') ?>">
                 <label for="reps">Reps:</label>
-                <input type="number" id="reps" name="reps" placeholder="Enter reps">
+                <input type="number" id="reps" name="reps[]" placeholder="Enter reps" value="<?php echo htmlspecialchars($progress[$exercise['exercise_id']]['reps'] ?? '') ?>">
             </div>
         <?php endforeach; ?>
 

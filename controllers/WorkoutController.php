@@ -56,7 +56,11 @@ class WorkoutController {
 
     public function showWorkoutProgress() {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
+        // Get exercises for this user's workout plan
         $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
+
+        // Get any existing progress for those exercises
+        $progress = $this->workoutModel->getProgressForDay($this->user_id, $day_of_week);
         include(__DIR__ . "/../views/workout-progress.php"); // Include the view
     }
 
@@ -64,36 +68,42 @@ class WorkoutController {
         $day_of_week = $this->input["daySelect"] ?? 'M'; // Default to Monday
 
         // Validate Required Parameters exist
-        $exercise_id = $this->input["exercise_id"] ?? null;
-        $weight = $this->input["weight"] ?? null;
-        $reps = $this->input["reps"] ?? null;
+        $exercise_ids = $this->input["exercise_id"] ?? [];
+        $weights = $this->input["weight"] ?? [];
+        $reps = $this->input["reps"] ?? [];
 
-        if (empty($exercise_id) || empty($weight) || empty($reps)) {
+        if (empty($exercise_ids) || empty($weights) || empty($reps)) {
             $error = "Missing Workout Information. Please complete the form!";
             $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
             include(__DIR__ . "/../views/workout-progress.php");
             return;
         }
 
-        //Validate input (example)
-        if (!is_numeric($weight) || !is_numeric($reps)) {
-            $error = "Weight and reps must be numbers.";
-            $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-            include(__DIR__ . "/../views/workout-progress.php");
-            return;
+        for ($i = 0; $i < count($exercise_ids); $i++) {
+            $eid = $exercise_ids[$i];
+            $w = $weights[$i] ?? null;
+            $r = $reps[$i] ?? null;
+    
+            // Validate individual entry
+            if (!is_numeric($w) || !is_numeric($r)) {
+                $error = "Weight and reps must be numbers.";
+                $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
+                include(__DIR__ . "/../views/workout-progress.php");
+                return;
+            }
+    
+            $result = $this->workoutModel->saveWorkoutProgress($this->user_id, $eid, $w, $r, $day_of_week);
+    
+            if (strpos($result, 'Error') === 0) {
+                $error = $result;
+                $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
+                include(__DIR__ . "/../views/workout-progress.php");
+                return;
+            }
         }
-
-        $result = $this->workoutModel->saveWorkoutProgress($this->user_id, $exercise_id, $weight, $reps);
-
-        if (strpos($result, 'Error') === 0) {
-            $error = $result;
-            $exercises = $this->workoutModel->getExercises($this->user_id, $day_of_week);
-        }
-        else {
-            $success = $result; // Assign success message
-        }
-
-        $this->showWorkoutProgress(); // Display updated workout progress
+    
+        $success = "Workout progress saved successfully!";
+        $this->showWorkoutProgress(); // Show updated view
     }
 
     public function editWorkoutPlan() {
