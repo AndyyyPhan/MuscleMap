@@ -91,28 +91,39 @@ class WorkoutModel {
         return $exercises;
     }
 
-    public function saveWorkoutProgress($user_id, $exercise_id, $weight, $reps) {
-        $query = "
-            INSERT INTO musclemap_user_exercises (plan_id, exercise_id, sets, reps, weight)
-            VALUES (
-                (SELECT id FROM musclemap_user_workout_plans WHERE user_id = $1 LIMIT 1),
-                $2,
-                1,  -- Placeholder for sets
-                $3,
-                $4
-            )
+    public function saveWorkoutProgress($user_id, $exercise_id, $weight, $reps, $day_of_week) {
+        // Check if progress already exists for this user, exercise, and day
+        $check_query = "
+            SELECT id FROM musclemap_workout_progress
+            WHERE user_id = $1 AND exercise_id = $2 AND day_of_week = $3
         ";
-        $params = array($user_id, $exercise_id, $reps, $weight);
-        $result = pg_query_params($this->db, $query, $params);
-
-        if ($result) {
-            pg_free_result($result);
-            return "Workout data saved!";
+        $check_params = array($user_id, $exercise_id, $day_of_week);
+        $check_result = pg_query_params($this->db, $check_query, $check_params);
+    
+        if ($existing = pg_fetch_assoc($check_result)) {
+            // Update existing progress
+            $update_query = "
+                UPDATE musclemap_workout_progress
+                SET weight = $4, reps = $5, created_at = CURRENT_TIMESTAMP
+                WHERE id = $6
+            ";
+            $update_params = array($user_id, $exercise_id, $day_of_week, $weight, $reps, $existing['id']);
+            $update_result = pg_query_params($this->db, $update_query, $update_params);
+    
+            return $update_result ? "Progress updated!" : "Error updating progress: " . pg_last_error($this->db);
         } else {
-            $error = "Error saving workout data: " . pg_last_error($this->db);
-            return $error;
+            // Insert new progress
+            $insert_query = "
+                INSERT INTO musclemap_workout_progress (user_id, exercise_id, day_of_week, weight, reps)
+                VALUES ($1, $2, $3, $4, $5)
+            ";
+            $insert_params = array($user_id, $exercise_id, $day_of_week, $weight, $reps);
+            $insert_result = pg_query_params($this->db, $insert_query, $insert_params);
+    
+            return $insert_result ? "Progress saved!" : "Error saving progress: " . pg_last_error($this->db);
         }
     }
+    
 
     public function getPlanId($user_id, $day_of_week) {
         $query = "SELECT id FROM musclemap_user_workout_plans WHERE user_id = $1 AND name = $2";
@@ -175,5 +186,23 @@ class WorkoutModel {
             return false;
         }
     }
+
+    public function getProgressForDay($user_id, $day_of_week) {
+        $query = "
+            SELECT exercise_id, weight, reps
+            FROM musclemap_workout_progress
+            WHERE user_id = $1 AND day_of_week = $2
+        ";
+        $params = array($user_id, $day_of_week);
+        $result = pg_query_params($this->db, $query, $params);
+    
+        $progress = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $progress[$row['exercise_id']] = $row;
+        }
+        pg_free_result($result);
+        return $progress;
+    }
+    
 }
 ?>
