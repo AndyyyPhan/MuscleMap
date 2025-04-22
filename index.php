@@ -14,3 +14,6 @@ spl_autoload_register(function($classname) {
 $input = array_merge($_GET, $_POST);
 $musclemap = new MuscleMapController($input);
 $musclemap -> run();
+?>
+
+<!-- https://cs4640.cs.virginia.edu/tmq6ed/musclemap -->
