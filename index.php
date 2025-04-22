@@ -1,5 +1,3 @@
-<!-- https://cs4640.cs.virginia.edu/tmq6ed/MuscleMap -->
-
 <?php
 
 require_once(__DIR__ . "/../../src/musclemap/models/Config.php");
