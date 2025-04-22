@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MuscleMap - Workout Plan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
         .table-container {
@@ -49,7 +51,7 @@
 
         <div class="ui-widget">
             <label for="search">Search Exercises: </label>
-            <input id="search">
+            <input id="search" class="form-control" placeholder="Search for exercises...">
         </div>
 
         <div class="table-container">
@@ -98,24 +100,25 @@
                     $.ajax({
                         url: "index.php?command=searchExercises",
                         dataType: "json",
-                        data: {
-                            searchKeyword: request.term
-                        },
+                        data: { searchKeyword: request.term },
                         success: function(data) {
+                            console.log("Received:", data);
                             response($.map(data, function(item) {
                                 return {
-                                    label: item.name + ' (' + item.muscle_group + ')',
+                                    label: item.name + " (" + item.muscle_group + ")",
                                     value: item.name,
                                     id: item.id
-                                }
+                                };
                             }));
+                        },
+                        error: function(xhr) {
+                            console.error("AJAX error:", xhr.responseText);
                         }
                     });
                 },
                 minLength: 2,
                 select: function(event, ui) {
                     console.log("Selected: " + ui.item.value + " id:" + ui.item.id);
-                    // You can do something with the selected exercise, like add it to the workout plan
                 }
             });
         });
