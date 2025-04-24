@@ -34,6 +34,7 @@ class MuscleMapController {
             case "editWorkoutPlan":
             case "updateWorkoutPlan":
             case "searchExercises":
+            case "addToWorkoutPlan":
                     $controller = new WorkoutController($this->input, $this->db->getConnection());
                     $controller->run();
                     break;
