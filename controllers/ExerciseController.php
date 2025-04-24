@@ -26,12 +26,12 @@ class ExerciseController {
     }
 
     private function showExercisePage() {
-        $muscle_group = $this->input['muscle'] ?? 'all';
+        $muscle_group = ucfirst(strtolower($this->input['muscle'] ?? 'all'));
 
         if ($muscle_group === 'all') {
             $exercises = $this->db->query("SELECT * FROM musclemap_exercises");
         } else {
-            $exercises = $this->db->query("SELECT * FROM musclemap_exercises WHERE muscle_group ILIKE $1", $muscle_group);
+            $exercises = $this->db->query("SELECT * FROM musclemap_exercises WHERE muscle_group = $1", $muscle_group);
         }
 
         include(__DIR__ . '/../views/exercise.php');
