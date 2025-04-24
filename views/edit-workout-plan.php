@@ -61,6 +61,8 @@
                 </div>
             </div>
 
+            <div id="preview-message" class="mt-3"></div>
+
             <button type="submit" class="btn btn-primary">Update Plan</button>
             <a href="index.php?command=showWorkoutPlan&daySelect=<?php echo htmlspecialchars($day_of_week); ?>" class="btn btn-secondary">Back to Plan</a>
         </form>
@@ -73,6 +75,74 @@
         </nav>
         <small class="d-block mt-3 text-white">Copyright &copy; 2025 Andy Phan, Kevin Arleen</small>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const previewDiv = document.getElementById("preview-message");
+            const addSelect = document.querySelector('select[name="add_exercises[]"]');
+            const removeSelect = document.querySelector('select[name="remove_exercises[]"]');
+
+            form.addEventListener("submit", function (e) {
+                // Clear previous messages
+                previewDiv.innerHTML = "";
+
+                const added = Array.from(addSelect.selectedOptions).map(opt => ({
+                    value: opt.value,
+                    label: opt.text
+                }));
+                const removed = Array.from(removeSelect.selectedOptions).map(opt => ({
+                    value: opt.value,
+                    label: opt.text
+                }));
+
+                const addedSet = new Set(added.map(e => e.value));
+                const removedSet = new Set(removed.map(e => e.value));
+                const overlap = [...addedSet].filter(val => removedSet.has(val));
+
+                // If there are overlapping exercises, stop form and show warning
+                if (overlap.length > 0) {
+                    e.preventDefault();
+
+                    const overlapLabels = added
+                        .filter(e => overlap.includes(e.value))
+                        .map(e => e.label);
+
+                    previewDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            ⚠️ You’ve selected the same exercise(s) to <strong>add and remove</strong>:<br>
+                            <ul>${overlapLabels.map(name => `<li>${name}</li>`).join('')}</ul>
+                            Please resolve the conflict before updating.
+                        </div>
+                    `;
+                    return;
+                }
+
+                // If no conflict, show preview message
+                const addNames = added.map(e => e.label);
+                const removeNames = removed.map(e => e.label);
+
+                const previewHTML = `
+                    <div class="alert alert-info">
+                        <strong>Preview of Changes:</strong><br>
+                        ${addNames.length > 0 ? `You are about to <strong>add</strong>: ${addNames.join(", ")}<br>` : ""}
+                        ${removeNames.length > 0 ? `You are about to <strong>remove</strong>: ${removeNames.join(", ")}` : ""}
+                    </div>
+                `;
+
+                // Display preview — then confirm if user wants to continue
+                previewDiv.innerHTML = previewHTML;
+
+                // Prevent immediate submission and ask for confirmation
+                e.preventDefault();
+                const confirmUpdate = confirm("Are you sure you want to make these changes?");
+                if (confirmUpdate) {
+                    // Submit manually if confirmed
+                    form.submit();
+                }
+            });
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
