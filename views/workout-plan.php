@@ -46,7 +46,6 @@
                 <option value="Sat" <?php if ($day_of_week == 'Sat') echo 'selected'; ?>>Saturday</option>
                 <option value="Sun" <?php if ($day_of_week == 'Sun') echo 'selected'; ?>>Sunday</option>
             </select>
-            <button type="submit">Select</button>
         </form>
 
         <div class="ui-widget">
@@ -123,5 +122,18 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const daySelect = document.getElementById("daySelect");
+
+            if (daySelect) {
+                daySelect.addEventListener("change", function () {
+                    this.form.submit();
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
