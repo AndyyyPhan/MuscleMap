@@ -1,10 +1,14 @@
 <?php
 
+require_once(__DIR__ . '/../models/Database.php');
+
 class ExerciseController {
     private $input;
+    private $db;
 
-    public function __construct($input) {
+    public function __construct($input, $db) {
         $this->input = $input;
+        $this->db = $db;
     }
 
     public function run() {
@@ -22,6 +26,14 @@ class ExerciseController {
     }
 
     private function showExercisePage() {
+        $muscle_group = $this->input['muscle'] ?? 'all';
+
+        if ($muscle_group === 'all') {
+            $exercises = $this->db->query("SELECT * FROM musclemap_exercises");
+        } else {
+            $exercises = $this->db->query("SELECT * FROM musclemap_exercises WHERE muscle_group ILIKE $1", $muscle_group);
+        }
+
         include(__DIR__ . '/../views/exercise.php');
     }
 
