@@ -41,6 +41,9 @@ class WorkoutController {
              case "searchExercises":
                 $this->searchExercises();
                 break;
+            case "addToWorkoutPlan":
+                $this->addToWorkoutPlan();
+                break;
             case "showWorkoutPlan":
             default:
                 $this->showWorkoutPlan();
@@ -166,7 +169,7 @@ class WorkoutController {
     
         if (!$exercise_id || !$this->user_id) {
             header("Location: index.php?command=exercise&error=missing");
-            return;
+            exit();
         }
     
         // Get or create a workout plan for the user/day
@@ -179,7 +182,7 @@ class WorkoutController {
         $this->workoutModel->addExerciseToPlan($plan_id, $exercise_id);
     
         // Redirect back to the exercise page
-        header("Location: index.php?command=exercise&muscle=" . urlencode($this->input["muscle"] ?? ""));
+        header("Location: index.php?command=showWorkoutPlan&daySelect=" . urlencode($day_of_week) . "&added=1");
+        exit();
     }
-    
 }
