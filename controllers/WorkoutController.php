@@ -159,4 +159,27 @@ class WorkoutController {
         $exercises = $this->workoutModel->searchExercises($keyword);
         echo json_encode($exercises);
     }
+
+    public function addToWorkoutPlan() {
+        $day_of_week = $this->input["daySelect"] ?? 'M';
+        $exercise_id = $this->input["exercise_id"] ?? null;
+    
+        if (!$exercise_id || !$this->user_id) {
+            header("Location: index.php?command=exercise&error=missing");
+            return;
+        }
+    
+        // Get or create a workout plan for the user/day
+        $plan_id = $this->workoutModel->getPlanId($this->user_id, $day_of_week);
+        if (!$plan_id) {
+            $plan_id = $this->workoutModel->createWorkoutPlan($this->user_id, $day_of_week);
+        }
+    
+        // Add the exercise to the plan
+        $this->workoutModel->addExerciseToPlan($plan_id, $exercise_id);
+    
+        // Redirect back to the exercise page
+        header("Location: index.php?command=exercise&muscle=" . urlencode($this->input["muscle"] ?? ""));
+    }
+    
 }
