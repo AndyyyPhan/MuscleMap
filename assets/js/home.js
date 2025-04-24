@@ -26,24 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
       highlight.style.display = "none";
     }
   
-    document.querySelector("area#biceps").addEventListener("mouseenter", () => showHighlight("biceps"));
-    document.querySelector("area#biceps").addEventListener("mouseleave", hideHighlight);
-  
-    document.querySelector("area#quads").addEventListener("mouseenter", () => showHighlight("quads"));
-    document.querySelector("area#quads").addEventListener("mouseleave", hideHighlight);
-
-    document.querySelector("area#triceps").addEventListener("mouseenter", () => showHighlight("triceps"));
-    document.querySelector("area#triceps").addEventListener("mouseleave", hideHighlight);
-
-    document.querySelector("area#hamstrings").addEventListener("mouseenter", () => showHighlight("hamstrings"));
-    document.querySelector("area#hamstrings").addEventListener("mouseleave", hideHighlight);
-
-    document.querySelector("area#calves").addEventListener("mouseenter", () => showHighlight("calves"));
-    document.querySelector("area#calves").addEventListener("mouseleave", hideHighlight);
-
-    document.querySelector("area#back").addEventListener("mouseenter", () => showHighlight("back"));
-    document.querySelector("area#back").addEventListener("mouseleave", hideHighlight);
-
-    document.querySelector("area#chest").addEventListener("mouseenter", () => showHighlight("chest"));
-    document.querySelector("area#chest").addEventListener("mouseleave", hideHighlight);
+    Object.keys(muscleMap).forEach(muscle => {
+      const area = document.getElementById(muscle);
+      if (area) {
+        area.addEventListener("mouseenter", () => showHighlight(muscle));
+        area.addEventListener("mouseleave", hideHighlight);
+      } else {
+        console.warn(`Could not find <area id="${muscle}">`);
+      }
+    });
+    
   });  
