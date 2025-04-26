@@ -12,19 +12,44 @@ Kevin Arleen's Contributions: workout-plan.html, workout-tracker.html
     margin: auto;
 }
 
-    .highlight-box {
-        position: absolute;
-        background-color: rgba(0,255,0,0.3);
-        border: 2px solid green;
-        display: none;
-        pointer-events: none;
-        z-index: 10; /* must be higher than image */
-    }
+.highlight-box {
+    position: absolute;
+    background-color: rgba(0,255,0,0.3);
+    border: 2px solid green;
+    display: none;
+    pointer-events: none;
+    z-index: 10; /* must be higher than image */
+}
+
+.explore-card {
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.explore-card h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
 </style>
 <header class="container text-center my-5">
     <h1>Welcome to MuscleMap</h1>
     <p class="lead">Explore muscle groups and discover the best exercises to strengthen them.</p>
 </header>
+
+<div class="explore-card">
+    <h2>Explore Exercises</h2>
+    <a href="index.php?command=get-exercises-json" target="_blank" class="btn btn-outline-primary">
+        View All Exercises (JSON)
+    </a>
+</div>
+
 <div class="container text-center my-4">
   <div id="muscle-container">
     <img id="human-body" src="assets/human_body.png" alt="Human Body Diagram" width="500" usemap="#musclemap">
