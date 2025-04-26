@@ -73,6 +73,20 @@ $db = pg_connect("host=$host port=$port dbname=$database user=$user password=$pa
 //     ('Squat', 'Compound lower body exercise', 'Beginner', 'Quadriceps'),
 //     ('Deadlift', 'Advanced posterior chain movement', 'Advanced', 'Back')
 // ;");
+// pg_query($db, "INSERT INTO musclemap_exercises (name, description, difficulty, muscle_group) VALUES
+//     ('Bench Press', 'Classic chest-building barbell exercise', 'Intermediate', 'Chest'),
+//     ('Pull-Up', 'Bodyweight back and biceps exercise', 'Advanced', 'Back'),
+//     ('Calf Raise', 'Simple exercise targeting calf muscles', 'Beginner', 'Calves'),
+//     ('Lunges', 'Lower body movement targeting quads, glutes, and hamstrings', 'Beginner', 'Quadriceps'),
+//     ('Romanian Deadlift', 'Hamstring-focused hinge exercise', 'Intermediate', 'Hamstrings'),
+//     ('Leg Curl', 'Machine exercise isolating the hamstrings', 'Beginner', 'Hamstrings'),
+//     ('Chest Fly', 'Isolation exercise for chest muscles using dumbbells or cables', 'Intermediate', 'Chest'),
+//     ('Skullcrusher', 'Lying tricep extension exercise with a barbell or dumbbells', 'Intermediate', 'Triceps'),
+//     ('Overhead Tricep Extension', 'Dumbbell or cable exercise focusing on long head of triceps', 'Beginner', 'Triceps'),
+//     ('Tricep Pushdown', 'Cable machine exercise isolating the triceps', 'Beginner', 'Triceps'),
+//     ('Close-Grip Bench Press', 'Compound pressing movement emphasizing triceps', 'Intermediate', 'Triceps'),
+//     ('Diamond Push-Up', 'Bodyweight push-up variation targeting triceps', 'Intermediate', 'Triceps')
+// ;");
 
 // pg_query($db, "CREATE TABLE musclemap_workout_progress (
 //     id INT PRIMARY KEY DEFAULT nextval('musclemap_workout_progress_seq'),
