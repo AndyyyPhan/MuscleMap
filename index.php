@@ -16,4 +16,13 @@ $musclemap = new MuscleMapController($input);
 $musclemap -> run();
 ?>
 
-<!-- https://cs4640.cs.virginia.edu/tmq6ed/musclemap -->
+<!--
+Project: MuscleMap
+Hosted on: https://cs4640.cs.virginia.edu/tmq6ed/musclemap/
+Contributors:
+- Andy Phan (tmq6ed): index.php, login.php, signup.php, home.php, header.php, footer.php, exercise.php, style.css,
+                      Config.php, Database.php, AuthController.php, ExerciseController.php, MuscleMapController.php,
+                      populate-database.php, view-database.php, exercise.js, home.js, signup.js
+- Kevin Arleen (xsu4ju): workout-plan.php, workout-progress.php, workout-tracker.php, edit-workout-plan.php,
+                         WorkoutModel.php, WorkoutController.php, home.js
+-->
